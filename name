@@ -1,0 +1,188 @@
+# DREAMYxHUB Loading UI + Webhook Example
+
+```lua
+--// DREAMYxHUB
+--// Loading UI + Webhook Notify
+
+local HttpService = game:GetService("HttpService")
+local Players = game:GetService("Players")
+local TweenService = game:GetService("TweenService")
+
+local LocalPlayer = Players.LocalPlayer
+
+--// WEBHOOK
+local Webhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
+
+pcall(function()
+    local data = {
+        ["content"] = "🎉 Someone executed DREAMYxHUB\n👤 User: " .. LocalPlayer.Name
+    }
+
+    request({
+        Url = Webhook,
+        Method = "POST",
+        Headers = {
+            ["Content-Type"] = "application/json"
+        },
+        Body = HttpService:JSONEncode(data)
+    })
+end)
+
+--// REMOVE OLD UI
+pcall(function()
+    game.CoreGui:FindFirstChild("DREAMYxHUB"):Destroy()
+end)
+
+--// GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "DREAMYxHUB"
+ScreenGui.Parent = game.CoreGui
+
+--// MAIN UI
+local Main = Instance.new("Frame")
+Main.Parent = ScreenGui
+Main.Size = UDim2.new(0, 500, 0, 300)
+Main.Position = UDim2.new(0.5, -250, 0.5, -150)
+Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
+Main.BorderSizePixel = 0
+Main.Visible = false
+Main.Active = true
+Main.Draggable = true
+
+local MainCorner = Instance.new("UICorner", Main)
+MainCorner.CornerRadius = UDim.new(0,12)
+
+local Stroke = Instance.new("UIStroke", Main)
+Stroke.Color = Color3.fromRGB(255,255,255)
+Stroke.Thickness = 1.5
+
+--// TITLE
+local Title = Instance.new("TextLabel")
+Title.Parent = Main
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1,0,0,50)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "DREAMYxHUB"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.TextSize = 28
+
+--// CLOSE BUTTON
+local Close = Instance.new("TextButton")
+Close.Parent = Main
+Close.Size = UDim2.new(0,35,0,35)
+Close.Position = UDim2.new(1,-45,0,10)
+Close.BackgroundColor3 = Color3.fromRGB(255,255,255)
+Close.Text = "X"
+Close.Font = Enum.Font.GothamBold
+Close.TextColor3 = Color3.fromRGB(0,0,0)
+Close.TextSize = 18
+
+Instance.new("UICorner", Close)
+
+Close.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+--// SIDE LOADING PANEL
+local LoadingFrame = Instance.new("Frame")
+LoadingFrame.Parent = ScreenGui
+LoadingFrame.Size = UDim2.new(0, 240, 0, 70)
+LoadingFrame.Position = UDim2.new(1, -260, 1, -100)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+LoadingFrame.BorderSizePixel = 0
+
+Instance.new("UICorner", LoadingFrame)
+
+local LoadingStroke = Instance.new("UIStroke", LoadingFrame)
+LoadingStroke.Color = Color3.fromRGB(255,255,255)
+
+local LoadingText = Instance.new("TextLabel")
+LoadingText.Parent = LoadingFrame
+LoadingText.Size = UDim2.new(1,0,1,0)
+LoadingText.BackgroundTransparency = 1
+LoadingText.Font = Enum.Font.GothamBold
+LoadingText.Text = "🔄 DREAMYxHUB Loading..."
+LoadingText.TextColor3 = Color3.fromRGB(255,255,255)
+LoadingText.TextSize = 18
+
+--// LOADING ANIMATION
+local tween1 = TweenService:Create(
+    LoadingFrame,
+    TweenInfo.new(0.5),
+    {Position = UDim2.new(1, -260, 1, -120)}
+)
+
+tween1:Play()
+
+wait(3)
+
+LoadingText.Text = "✅ DREAMYxHUB Loaded"
+
+wait(1.5)
+
+local tween2 = TweenService:Create(
+    LoadingFrame,
+    TweenInfo.new(0.5),
+    {Position = UDim2.new(1, 300, 1, -120)}
+)
+
+tween2:Play()
+
+wait(0.5)
+LoadingFrame:Destroy()
+
+--// SHOW MAIN UI
+Main.Visible = true
+
+--// LEFT MENU
+local Menu = Instance.new("Frame")
+Menu.Parent = Main
+Menu.Size = UDim2.new(0,120,1,-50)
+Menu.Position = UDim2.new(0,0,0,50)
+Menu.BackgroundColor3 = Color3.fromRGB(10,10,10)
+Menu.BorderSizePixel = 0
+
+local MenuCorner = Instance.new("UICorner", Menu)
+MenuCorner.CornerRadius = UDim.new(0,10)
+
+--// BUTTON MAKER
+local function CreateButton(text, posY)
+    local Btn = Instance.new("TextButton")
+    Btn.Parent = Menu
+    Btn.Size = UDim2.new(1,-10,0,40)
+    Btn.Position = UDim2.new(0,5,0,posY)
+    Btn.BackgroundColor3 = Color3.fromRGB(255,255,255)
+    Btn.TextColor3 = Color3.fromRGB(0,0,0)
+    Btn.Font = Enum.Font.GothamBold
+    Btn.TextSize = 16
+    Btn.Text = text
+
+    Instance.new("UICorner", Btn)
+
+    return Btn
+end
+
+CreateButton("Farm", 10)
+CreateButton("Visual", 60)
+CreateButton("Teleport", 110)
+CreateButton("Shop", 160)
+
+--// CONTENT AREA
+local Content = Instance.new("Frame")
+Content.Parent = Main
+Content.Size = UDim2.new(1,-140,1,-70)
+Content.Position = UDim2.new(0,130,0,60)
+Content.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Content.BorderSizePixel = 0
+
+Instance.new("UICorner", Content)
+
+local Welcome = Instance.new("TextLabel")
+Welcome.Parent = Content
+Welcome.BackgroundTransparency = 1
+Welcome.Size = UDim2.new(1,0,0,50)
+Welcome.Font = Enum.Font.GothamBold
+Welcome.Text = "Welcome To DREAMYxHUB"
+Welcome.TextColor3 = Color3.fromRGB(255,255,255)
+Welcome.TextSize = 24
+``` 
