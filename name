@@ -1,8 +1,6 @@
-# DREAMYxHUB Loading UI + Webhook Example
-
-```lua
---// DREAMYxHUB
---// Loading UI + Webhook Notify
+--// DREAMYxHUB FULL UI
+--// Black & White Theme
+--// Loading System + Webhook + Auto Loader
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
@@ -11,11 +9,14 @@ local TweenService = game:GetService("TweenService")
 local LocalPlayer = Players.LocalPlayer
 
 --// WEBHOOK
-local Webhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
+local Webhook = "YOUR_WEBHOOK_HERE"
 
 pcall(function()
     local data = {
-        ["content"] = "🎉 Someone executed DREAMYxHUB\n👤 User: " .. LocalPlayer.Name
+        ["content"] =
+        "🎉 DREAMYxHUB Executed!\n" ..
+        "👤 Username: " .. LocalPlayer.Name .. "\n" ..
+        "🆔 UserId: " .. LocalPlayer.UserId
     }
 
     request({
@@ -37,24 +38,25 @@ end)
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "DREAMYxHUB"
 ScreenGui.Parent = game.CoreGui
+ScreenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
---// MAIN UI
+--// MAIN
 local Main = Instance.new("Frame")
 Main.Parent = ScreenGui
-Main.Size = UDim2.new(0, 500, 0, 300)
-Main.Position = UDim2.new(0.5, -250, 0.5, -150)
+Main.Size = UDim2.new(0, 540, 0, 320)
+Main.Position = UDim2.new(0.5, -270, 0.5, -160)
 Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
 Main.BorderSizePixel = 0
 Main.Visible = false
 Main.Active = true
 Main.Draggable = true
 
-local MainCorner = Instance.new("UICorner", Main)
-MainCorner.CornerRadius = UDim.new(0,12)
+Instance.new("UICorner", Main).CornerRadius = UDim.new(0,12)
 
-local Stroke = Instance.new("UIStroke", Main)
-Stroke.Color = Color3.fromRGB(255,255,255)
-Stroke.Thickness = 1.5
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Parent = Main
+MainStroke.Color = Color3.fromRGB(255,255,255)
+MainStroke.Thickness = 1.5
 
 --// TITLE
 local Title = Instance.new("TextLabel")
@@ -83,57 +85,6 @@ Close.MouseButton1Click:Connect(function()
     ScreenGui:Destroy()
 end)
 
---// SIDE LOADING PANEL
-local LoadingFrame = Instance.new("Frame")
-LoadingFrame.Parent = ScreenGui
-LoadingFrame.Size = UDim2.new(0, 240, 0, 70)
-LoadingFrame.Position = UDim2.new(1, -260, 1, -100)
-LoadingFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
-LoadingFrame.BorderSizePixel = 0
-
-Instance.new("UICorner", LoadingFrame)
-
-local LoadingStroke = Instance.new("UIStroke", LoadingFrame)
-LoadingStroke.Color = Color3.fromRGB(255,255,255)
-
-local LoadingText = Instance.new("TextLabel")
-LoadingText.Parent = LoadingFrame
-LoadingText.Size = UDim2.new(1,0,1,0)
-LoadingText.BackgroundTransparency = 1
-LoadingText.Font = Enum.Font.GothamBold
-LoadingText.Text = "🔄 DREAMYxHUB Loading..."
-LoadingText.TextColor3 = Color3.fromRGB(255,255,255)
-LoadingText.TextSize = 18
-
---// LOADING ANIMATION
-local tween1 = TweenService:Create(
-    LoadingFrame,
-    TweenInfo.new(0.5),
-    {Position = UDim2.new(1, -260, 1, -120)}
-)
-
-tween1:Play()
-
-wait(3)
-
-LoadingText.Text = "✅ DREAMYxHUB Loaded"
-
-wait(1.5)
-
-local tween2 = TweenService:Create(
-    LoadingFrame,
-    TweenInfo.new(0.5),
-    {Position = UDim2.new(1, 300, 1, -120)}
-)
-
-tween2:Play()
-
-wait(0.5)
-LoadingFrame:Destroy()
-
---// SHOW MAIN UI
-Main.Visible = true
-
 --// LEFT MENU
 local Menu = Instance.new("Frame")
 Menu.Parent = Main
@@ -142,11 +93,31 @@ Menu.Position = UDim2.new(0,0,0,50)
 Menu.BackgroundColor3 = Color3.fromRGB(10,10,10)
 Menu.BorderSizePixel = 0
 
-local MenuCorner = Instance.new("UICorner", Menu)
-MenuCorner.CornerRadius = UDim.new(0,10)
+Instance.new("UICorner", Menu)
 
---// BUTTON MAKER
+--// CONTENT
+local Content = Instance.new("Frame")
+Content.Parent = Main
+Content.Size = UDim2.new(1,-140,1,-70)
+Content.Position = UDim2.new(0,130,0,60)
+Content.BackgroundColor3 = Color3.fromRGB(20,20,20)
+Content.BorderSizePixel = 0
+
+Instance.new("UICorner", Content)
+
+--// WELCOME
+local Welcome = Instance.new("TextLabel")
+Welcome.Parent = Content
+Welcome.BackgroundTransparency = 1
+Welcome.Size = UDim2.new(1,0,0,50)
+Welcome.Font = Enum.Font.GothamBold
+Welcome.Text = "Welcome To DREAMYxHUB"
+Welcome.TextColor3 = Color3.fromRGB(255,255,255)
+Welcome.TextSize = 24
+
+--// BUTTON CREATOR
 local function CreateButton(text, posY)
+
     local Btn = Instance.new("TextButton")
     Btn.Parent = Menu
     Btn.Size = UDim2.new(1,-10,0,40)
@@ -167,23 +138,66 @@ CreateButton("Visual", 60)
 CreateButton("Teleport", 110)
 CreateButton("Shop", 160)
 
---// CONTENT AREA
-local Content = Instance.new("Frame")
-Content.Parent = Main
-Content.Size = UDim2.new(1,-140,1,-70)
-Content.Position = UDim2.new(0,130,0,60)
-Content.BackgroundColor3 = Color3.fromRGB(20,20,20)
-Content.BorderSizePixel = 0
+--// LOADING NOTIFICATION
+local LoadingFrame = Instance.new("Frame")
+LoadingFrame.Parent = ScreenGui
+LoadingFrame.Size = UDim2.new(0,240,0,70)
+LoadingFrame.Position = UDim2.new(1,300,1,-120)
+LoadingFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
+LoadingFrame.BorderSizePixel = 0
 
-Instance.new("UICorner", Content)
+Instance.new("UICorner", LoadingFrame)
 
-local Welcome = Instance.new("TextLabel")
-Welcome.Parent = Content
-Welcome.BackgroundTransparency = 1
-Welcome.Size = UDim2.new(1,0,0,50)
-Welcome.Font = Enum.Font.GothamBold
-Welcome.Text = "Welcome To DREAMYxHUB"
-Welcome.TextColor3 = Color3.fromRGB(255,255,255)
-Welcome.TextSize = 24
-``` 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/997853ff20e4597a05ce2cdd6ff3e4d39a11aac7/name"))()
+local LoadStroke = Instance.new("UIStroke")
+LoadStroke.Parent = LoadingFrame
+LoadStroke.Color = Color3.fromRGB(255,255,255)
+
+local LoadingText = Instance.new("TextLabel")
+LoadingText.Parent = LoadingFrame
+LoadingText.Size = UDim2.new(1,0,1,0)
+LoadingText.BackgroundTransparency = 1
+LoadingText.Font = Enum.Font.GothamBold
+LoadingText.Text = "🔄 DREAMYxHUB Loading..."
+LoadingText.TextColor3 = Color3.fromRGB(255,255,255)
+LoadingText.TextSize = 18
+
+--// TWEEN IN
+TweenService:Create(
+    LoadingFrame,
+    TweenInfo.new(0.5),
+    {Position = UDim2.new(1,-260,1,-120)}
+):Play()
+
+wait(1)
+
+LoadingText.Text = "📦 Loading Script..."
+
+--// LOAD YOUR SCRIPT
+local success, err = pcall(function()
+
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/997853ff20e4597a05ce2cdd6ff3e4d39a11aac7/name"))()
+
+end)
+
+if success then
+    LoadingText.Text = "✅ DREAMYxHUB Loaded"
+else
+    LoadingText.Text = "❌ Load Failed"
+    warn(err)
+end
+
+wait(1.5)
+
+--// TWEEN OUT
+TweenService:Create(
+    LoadingFrame,
+    TweenInfo.new(0.5),
+    {Position = UDim2.new(1,300,1,-120)}
+):Play()
+
+wait(0.5)
+
+LoadingFrame:Destroy()
+
+--// SHOW MAIN UI
+Main.Visible = true
