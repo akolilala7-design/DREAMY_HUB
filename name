@@ -30,4 +30,4 @@ pcall(function()
 end)
 
 -- LOAD UI
-loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/main/name.lua"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/refs/heads/main/name"))()
