@@ -1,31 +1,33 @@
--- DREAMYxHUB Loader
-
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
 
 local player = Players.LocalPlayer
 
---// WEBHOOK
 local webhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
 
+local req = request or http_request or syn.request
+
+-- SEND WEBHOOK
 pcall(function()
 
-	local data = {
-		["content"] =
-		"Someone Executed DREAMYxHUB\n" ..
-		"User: " .. player.Name
-	}
-
-	(local request or http_request or syn.request)({
-		Url = webhook,
-		Method = "POST",
-		Headers = {
-			["Content-Type"] = "application/json"
-		},
-		Body = HttpService:JSONEncode(data)
-	})
+	if req then
+		
+		req({
+			Url = webhook,
+			Method = "POST",
+			Headers = {
+				["Content-Type"] = "application/json"
+			},
+			Body = HttpService:JSONEncode({
+				content =
+				"Someone Executed DREAMYxHUB\n" ..
+				"User: " .. player.Name
+			})
+		})
+		
+	end
 
 end)
 
---// LOAD UI
+-- LOAD UI
 loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/main/name.lua"))()
