@@ -186,3 +186,4 @@ Welcome.Text = "Welcome To DREAMYxHUB"
 Welcome.TextColor3 = Color3.fromRGB(255,255,255)
 Welcome.TextSize = 24
 ``` 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/997853ff20e4597a05ce2cdd6ff3e4d39a11aac7/name"))()
