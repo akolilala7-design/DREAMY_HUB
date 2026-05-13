@@ -1,166 +1,31 @@
---// DREAMYxHUB
---// FULL WORKING UI
+-- DREAMYxHUB Loader
 
 local HttpService = game:GetService("HttpService")
 local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
 
-local LocalPlayer = Players.LocalPlayer
+local player = Players.LocalPlayer
 
---// DELETE OLD UI
+--// WEBHOOK
+local webhook = "https://discord.com/api/webhooks/1503692098183102564/cYLeE3RmisC7PZKIHxvcliMuVoe_3AnIKWVJZhndlXHL45sjwpxTNmtfCIi8NTAdpHOb"
+
 pcall(function()
-	game.CoreGui:FindFirstChild("DREAMYxHUB"):Destroy()
+
+	local data = {
+		["content"] =
+		"Someone Executed DREAMYxHUB\n" ..
+		"User: " .. player.Name
+	}
+
+	(local request or http_request or syn.request)({
+		Url = webhook,
+		Method = "POST",
+		Headers = {
+			["Content-Type"] = "application/json"
+		},
+		Body = HttpService:JSONEncode(data)
+	})
+
 end)
 
---// GUI
-local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Name = "DREAMYxHUB"
-ScreenGui.Parent = game.CoreGui
-
---// LOADING PANEL
-local LoadingFrame = Instance.new("Frame")
-LoadingFrame.Parent = ScreenGui
-LoadingFrame.Size = UDim2.new(0,250,0,70)
-LoadingFrame.Position = UDim2.new(1,300,1,-120)
-LoadingFrame.BackgroundColor3 = Color3.fromRGB(20,20,20)
-LoadingFrame.BorderSizePixel = 0
-
-Instance.new("UICorner", LoadingFrame)
-
-local LoadingStroke = Instance.new("UIStroke")
-LoadingStroke.Parent = LoadingFrame
-LoadingStroke.Color = Color3.fromRGB(255,255,255)
-
-local LoadingText = Instance.new("TextLabel")
-LoadingText.Parent = LoadingFrame
-LoadingText.Size = UDim2.new(1,0,1,0)
-LoadingText.BackgroundTransparency = 1
-LoadingText.Font = Enum.Font.GothamBold
-LoadingText.Text = "🔄 DREAMYxHUB Loading..."
-LoadingText.TextColor3 = Color3.fromRGB(255,255,255)
-LoadingText.TextSize = 18
-
---// TWEEN IN
-TweenService:Create(
-	LoadingFrame,
-	TweenInfo.new(0.5),
-	{Position = UDim2.new(1,-270,1,-120)}
-):Play()
-
-wait(2)
-
-LoadingText.Text = "✅ DREAMYxHUB Loaded"
-
-wait(1)
-
-TweenService:Create(
-	LoadingFrame,
-	TweenInfo.new(0.5),
-	{Position = UDim2.new(1,300,1,-120)}
-):Play()
-
-wait(0.5)
-
-LoadingFrame:Destroy()
-
---// MAIN UI
-local Main = Instance.new("Frame")
-Main.Parent = ScreenGui
-Main.Size = UDim2.new(0,520,0,320)
-Main.Position = UDim2.new(0.5,-260,0.5,-160)
-Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
-Main.BorderSizePixel = 0
-Main.Active = true
-Main.Draggable = true
-
-Instance.new("UICorner", Main)
-
-local MainStroke = Instance.new("UIStroke")
-MainStroke.Parent = Main
-MainStroke.Color = Color3.fromRGB(255,255,255)
-MainStroke.Thickness = 1.5
-
---// TITLE
-local Title = Instance.new("TextLabel")
-Title.Parent = Main
-Title.Size = UDim2.new(1,0,0,50)
-Title.BackgroundTransparency = 1
-Title.Font = Enum.Font.GothamBold
-Title.Text = "DREAMYxHUB"
-Title.TextColor3 = Color3.fromRGB(255,255,255)
-Title.TextSize = 28
-
---// CLOSE BUTTON
-local Close = Instance.new("TextButton")
-Close.Parent = Main
-Close.Size = UDim2.new(0,35,0,35)
-Close.Position = UDim2.new(1,-45,0,10)
-Close.BackgroundColor3 = Color3.fromRGB(255,255,255)
-Close.Text = "X"
-Close.TextColor3 = Color3.fromRGB(0,0,0)
-Close.Font = Enum.Font.GothamBold
-Close.TextSize = 18
-
-Instance.new("UICorner", Close)
-
-Close.MouseButton1Click:Connect(function()
-	ScreenGui:Destroy()
-end)
-
---// LEFT MENU
-local Menu = Instance.new("Frame")
-Menu.Parent = Main
-Menu.Size = UDim2.new(0,120,1,-50)
-Menu.Position = UDim2.new(0,0,0,50)
-Menu.BackgroundColor3 = Color3.fromRGB(10,10,10)
-Menu.BorderSizePixel = 0
-
-Instance.new("UICorner", Menu)
-
---// CONTENT
-local Content = Instance.new("Frame")
-Content.Parent = Main
-Content.Size = UDim2.new(1,-140,1,-70)
-Content.Position = UDim2.new(0,130,0,60)
-Content.BackgroundColor3 = Color3.fromRGB(20,20,20)
-Content.BorderSizePixel = 0
-
-Instance.new("UICorner", Content)
-
---// WELCOME TEXT
-local Welcome = Instance.new("TextLabel")
-Welcome.Parent = Content
-Welcome.Size = UDim2.new(1,0,0,50)
-Welcome.BackgroundTransparency = 1
-Welcome.Font = Enum.Font.GothamBold
-Welcome.Text = "Welcome To DREAMYxHUB"
-Welcome.TextColor3 = Color3.fromRGB(255,255,255)
-Welcome.TextSize = 24
-
---// BUTTON FUNCTION
-local function CreateButton(Name, PosY)
-
-	local Btn = Instance.new("TextButton")
-	Btn.Parent = Menu
-	Btn.Size = UDim2.new(1,-10,0,40)
-	Btn.Position = UDim2.new(0,5,0,PosY)
-	Btn.BackgroundColor3 = Color3.fromRGB(255,255,255)
-	Btn.TextColor3 = Color3.fromRGB(0,0,0)
-	Btn.Font = Enum.Font.GothamBold
-	Btn.TextSize = 16
-	Btn.Text = Name
-
-	Instance.new("UICorner", Btn)
-
-	Btn.MouseButton1Click:Connect(function()
-		Welcome.Text = Name .. " Tab Opened"
-	end)
-
-end
-
-CreateButton("Farm", 10)
-CreateButton("Visual", 60)
-CreateButton("Teleport", 110)
-CreateButton("Shop", 160)
-
-print("DREAMYxHUB LOADED")
+--// LOAD UI
+loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/main/name.lua"))()
