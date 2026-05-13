@@ -1,0 +1,106 @@
+--// DREAMY HUB UI
+--// Black & White Theme
+
+local ScreenGui = Instance.new("ScreenGui")
+local Main = Instance.new("Frame")
+local Title = Instance.new("TextLabel")
+local Close = Instance.new("TextButton")
+local UICorner = Instance.new("UICorner")
+local UIStroke = Instance.new("UIStroke")
+
+-- Buttons
+local FarmButton = Instance.new("TextButton")
+local TeleportButton = Instance.new("TextButton")
+local ESPButton = Instance.new("TextButton")
+
+-- Parent
+ScreenGui.Parent = game.CoreGui
+ScreenGui.Name = "DreamyHub"
+
+-- Main Frame
+Main.Parent = ScreenGui
+Main.BackgroundColor3 = Color3.fromRGB(15,15,15)
+Main.Position = UDim2.new(0.35,0,0.25,0)
+Main.Size = UDim2.new(0,420,0,300)
+Main.Active = true
+Main.Draggable = true
+
+UICorner.Parent = Main
+UICorner.CornerRadius = UDim.new(0,12)
+
+UIStroke.Parent = Main
+UIStroke.Color = Color3.fromRGB(255,255,255)
+UIStroke.Thickness = 2
+
+-- Title
+Title.Parent = Main
+Title.BackgroundTransparency = 1
+Title.Size = UDim2.new(1,0,0,50)
+Title.Font = Enum.Font.GothamBold
+Title.Text = "DREAMY HUB"
+Title.TextColor3 = Color3.fromRGB(255,255,255)
+Title.TextSize = 28
+
+-- Close Button
+Close.Parent = Main
+Close.BackgroundColor3 = Color3.fromRGB(255,255,255)
+Close.Position = UDim2.new(0.88,0,0.03,0)
+Close.Size = UDim2.new(0,35,0,35)
+Close.Font = Enum.Font.GothamBold
+Close.Text = "X"
+Close.TextColor3 = Color3.fromRGB(0,0,0)
+Close.TextSize = 20
+
+local CloseCorner = Instance.new("UICorner", Close)
+
+Close.MouseButton1Click:Connect(function()
+	ScreenGui:Destroy()
+end)
+
+-- Auto Farm Button
+FarmButton.Parent = Main
+FarmButton.BackgroundColor3 = Color3.fromRGB(255,255,255)
+FarmButton.Position = UDim2.new(0.12,0,0.28,0)
+FarmButton.Size = UDim2.new(0,320,0,45)
+FarmButton.Font = Enum.Font.GothamBold
+FarmButton.Text = "AUTO FARM"
+FarmButton.TextColor3 = Color3.fromRGB(0,0,0)
+FarmButton.TextSize = 20
+
+Instance.new("UICorner", FarmButton)
+
+FarmButton.MouseButton1Click:Connect(function()
+	print("Auto Farm Enabled")
+end)
+
+-- Teleport Button
+TeleportButton.Parent = Main
+TeleportButton.BackgroundColor3 = Color3.fromRGB(255,255,255)
+TeleportButton.Position = UDim2.new(0.12,0,0.48,0)
+TeleportButton.Size = UDim2.new(0,320,0,45)
+TeleportButton.Font = Enum.Font.GothamBold
+TeleportButton.Text = "TELEPORT"
+TeleportButton.TextColor3 = Color3.fromRGB(0,0,0)
+TeleportButton.TextSize = 20
+
+Instance.new("UICorner", TeleportButton)
+
+TeleportButton.MouseButton1Click:Connect(function()
+	print("Teleport Opened")
+end)
+
+-- ESP Button
+ESPButton.Parent = Main
+ESPButton.BackgroundColor3 = Color3.fromRGB(255,255,255)
+ESPButton.Position = UDim2.new(0.12,0,0.68,0)
+ESPButton.Size = UDim2.new(0,320,0,45)
+ESPButton.Font = Enum.Font.GothamBold
+ESPButton.Text = "ESP PLAYERS"
+ESPButton.TextColor3 = Color3.fromRGB(0,0,0)
+ESPButton.TextSize = 20
+
+Instance.new("UICorner", ESPButton)
+
+ESPButton.MouseButton1Click:Connect(function()
+	print("ESP Enabled")
+end)
