@@ -71,6 +71,6 @@ Username = "sojh798"
 Button_Prompt = "E"
 
 -- LOAD SCRIPT
-loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/94e0dfa41e37db57cfa0b34b8f042327b8f10685/DREAMYS_hub"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/akolilala7-design/DREAMY_HUB/398d4ee764fe8acc0527c4db1b832450c2eea34a/AnshuXDev"))()
 
 Status.Text = "DREAMY HUB LOADED!"
